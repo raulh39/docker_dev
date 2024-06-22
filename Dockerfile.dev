@@ -41,3 +41,6 @@ RUN pipx install conan && \
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install
 
+RUN mkdir -p ~/.config/tmux/plugins && \
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm && \
+    ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh
