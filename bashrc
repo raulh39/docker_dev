@@ -113,5 +113,8 @@ if ! shopt -oq posix; then
 fi
 
 # pipx integration
-export PATH="$PATH:/home/ubuntu/.local/bin"
+export PATH="$PATH:/home/ubuntu/.local/bin":.
 eval "$(register-python-argcomplete pipx)"
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"

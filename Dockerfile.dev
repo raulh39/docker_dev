@@ -15,7 +15,15 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     neovim \
     tmux \
     tldr \
-    bat
+    bat \
+    curl \
+    fzf
+
+RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
+    tar xf lazygit.tar.gz lazygit && \
+    sudo install lazygit /usr/local/bin && \
+    rm -rf lazygit.tar.gz lazygit
 
 RUN usermod -G sudo,root ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -23,6 +31,7 @@ USER ubuntu
 WORKDIR /home/ubuntu
 
 COPY bashrc /home/ubuntu/.bashrc
+COPY bash_aliases /home/ubuntu/.bash_aliases
 
 RUN pipx install conan && \
     tldr --update
