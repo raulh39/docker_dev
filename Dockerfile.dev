@@ -14,16 +14,15 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     pipx \
     neovim \
     tmux \
-    tldr
+    tldr \
+    bat
 
 RUN usermod -G sudo,root ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ubuntu
 WORKDIR /home/ubuntu
 
-RUN pipx completions && \
-    pipx ensurepath && \
-    pipx install conan && \
-    echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc && \
-    tldr --update
+COPY bashrc /home/ubuntu/.bashrc
 
+RUN pipx install conan && \
+    tldr --update
