@@ -16,8 +16,7 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     tmux \
     tldr \
     bat \
-    curl \
-    fzf
+    curl
 
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
@@ -25,13 +24,20 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     sudo install lazygit /usr/local/bin && \
     rm -rf lazygit.tar.gz lazygit
 
+COPY bashrc /home/ubuntu/.bashrc
+COPY bash_aliases /home/ubuntu/.bash_aliases
+COPY tmux.conf /home/ubuntu/.config/tmux/
+
+RUN chown -R ubuntu:ubuntu /home/ubuntu
+
 RUN usermod -G sudo,root ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ubuntu
 WORKDIR /home/ubuntu
 
-COPY bashrc /home/ubuntu/.bashrc
-COPY bash_aliases /home/ubuntu/.bash_aliases
-
 RUN pipx install conan && \
     tldr --update
+
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    ~/.fzf/install
+
