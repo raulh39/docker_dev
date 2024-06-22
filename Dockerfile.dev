@@ -1,0 +1,29 @@
+FROM ubuntu:24.04
+LABEL Description="C++ Development environment"
+
+SHELL ["/bin/bash", "-c"]
+
+RUN apt-get update && apt-get -y --no-install-recommends install \
+    wget \
+    sudo \
+    clang \
+    clangd \
+    clang-format \
+    cmake \
+    ninja-build \
+    pipx \
+    neovim \
+    tmux \
+    tldr
+
+RUN usermod -G sudo,root ubuntu
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+USER ubuntu
+WORKDIR /home/ubuntu
+
+RUN pipx completions && \
+    pipx ensurepath && \
+    pipx install conan && \
+    echo 'eval "$(register-python-argcomplete pipx)"' >> ~/.bashrc && \
+    tldr --update
+
