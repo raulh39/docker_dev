@@ -10,4 +10,4 @@ Build an image:
 
 Execute an interactive bash inside the image built:
 
-`docker run --rm -i -t --init raulh39/build_env:latest /bin/bash -i`
+`docker run --hostname devenv --rm -i -t --init raulh39/build_env:latest`
