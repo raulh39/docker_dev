@@ -25,11 +25,10 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     sudo install lazygit /usr/local/bin && \
     rm -rf lazygit.tar.gz lazygit
 
-COPY bashrc /home/ubuntu/.bashrc
-COPY bash_aliases /home/ubuntu/.bash_aliases
-COPY tmux.conf /home/ubuntu/.config/tmux/
-
-RUN chown -R ubuntu:ubuntu /home/ubuntu
+COPY --chown=ubuntu:ubuntu bashrc /home/ubuntu/.bashrc
+COPY --chown=ubuntu:ubuntu bash_aliases /home/ubuntu/.bash_aliases
+COPY --chown=ubuntu:ubuntu tmux.conf /home/ubuntu/.config/tmux/
+COPY --chown=ubuntu:ubuntu conan_profile /home/ubuntu/.conan2/profiles/default
 
 RUN usermod -G sudo,root ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -45,3 +44,4 @@ RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
 RUN mkdir -p ~/.config/tmux/plugins && \
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm && \
     ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+
