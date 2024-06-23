@@ -9,7 +9,9 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     clang \
     clangd \
     clang-format \
+    clang-tools \
     cmake \
+    make \
     ninja-build \
     pipx \
     neovim \
@@ -17,7 +19,8 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     tldr \
     bat \
     curl \
-    gdb
+    gdb \
+    less
 
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" && \
