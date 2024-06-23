@@ -28,10 +28,10 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     sudo install lazygit /usr/local/bin && \
     rm -rf lazygit.tar.gz lazygit
 
-COPY --chown=ubuntu:ubuntu bashrc /home/ubuntu/.bashrc
-COPY --chown=ubuntu:ubuntu bash_aliases /home/ubuntu/.bash_aliases
-COPY --chown=ubuntu:ubuntu tmux.conf /home/ubuntu/.config/tmux/
-COPY --chown=ubuntu:ubuntu conan_profile /home/ubuntu/.conan2/profiles/default
+COPY --chown=ubuntu:ubuntu config/bashrc /home/ubuntu/.bashrc
+COPY --chown=ubuntu:ubuntu config/bash_aliases /home/ubuntu/.bash_aliases
+COPY --chown=ubuntu:ubuntu config/tmux.conf /home/ubuntu/.config/tmux/
+COPY --chown=ubuntu:ubuntu config/conan_profile /home/ubuntu/.conan2/profiles/default
 
 RUN usermod -G sudo,root ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
