@@ -16,12 +16,13 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
     pipx \
     neovim \
     tmux \
-    tldr \
     bat \
     curl \
     gdb \
     less \
-    locales
+    locales \
+    git \
+    python3-numpy
 
 COPY config/locale /etc/default/locale
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8
@@ -42,8 +43,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER ubuntu
 WORKDIR /home/ubuntu
 
-RUN pipx install conan && \
-    tldr --update
+RUN pipx install conan tldr
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
     ~/.fzf/install
