@@ -1,6 +1,11 @@
 FROM ubuntu:24.04
 LABEL Description="C++ Development environment"
 
+#Both of these arguments are meant to be set at build time:
+#    docker build ... --build-arg USER_UID=$(id -u) --build-arg USER_NAME=$(id -un)
+ARG USER_UID=1111
+ARG USER_NAME=ubuntu
+
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && apt-get -y --no-install-recommends install \
@@ -38,9 +43,10 @@ COPY --chown=ubuntu:ubuntu config/bash_aliases /home/ubuntu/.bash_aliases
 COPY --chown=ubuntu:ubuntu config/tmux.conf /home/ubuntu/.config/tmux/
 COPY --chown=ubuntu:ubuntu config/conan_profile /home/ubuntu/.conan2/profiles/default
 
-RUN usermod -G sudo,root ubuntu
+RUN usermod -u ${USER_UID} -G sudo,root ubuntu
+RUN usermod -l ${USER_NAME} ubuntu
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-USER ubuntu
+USER ${USER_NAME}
 WORKDIR /home/ubuntu
 
 RUN pipx install conan tldr
