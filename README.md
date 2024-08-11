@@ -46,6 +46,7 @@ and then start it again:
 docker start devenv
 ```
 This is useful when restarting the host machine (the "stop" command is not needed in that case as Docker daemon will do it for yourself)
+
 Of course, all running processes will stop.
 
 While you don't delete the container, all the files you create inside it will be preserved, even if they don't belong to a mounted
@@ -55,3 +56,4 @@ In order to delete the container use the usual:
 ```
 docker container rm devenv
 ```
+But I don't really see the point of doing it except to reset the system to a healthy state (you will lose, for example, Conan's cache)
