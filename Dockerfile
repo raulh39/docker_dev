@@ -1,33 +1,46 @@
+# HowTo:
+#  See compose.yaml, otherwise:
+#    docker build --build-arg USER_UID=$(id -u) --build-arg USER_NAME=$(id -un) -t devenv .
+#    docker run -dit -p 3000:22 --name devenv --hostname devenv devenv:latest
+#    ssh -p 3000 root@localhost
 FROM ubuntu:24.04
 LABEL Description="C++ Development environment"
 
-#Both of these arguments are meant to be set at build time:
-#    docker build ... --build-arg USER_UID=$(id -u) --build-arg USER_NAME=$(id -un)
 ARG USER_UID=1111
 ARG USER_NAME=ubuntu
 
 SHELL ["/bin/bash", "-c"]
 
-RUN apt-get update && apt-get -y --no-install-recommends install \
-    wget \
-    sudo \
-    clang \
-    clangd \
-    clang-format \
-    clang-tools \
-    cmake \
-    make \
-    ninja-build \
-    pipx \
-    neovim \
-    tmux \
-    bat \
-    curl \
-    gdb \
-    less \
-    locales \
-    git \
-    python3-numpy
+RUN apt-get update -y && apt-get -y --no-install-recommends install \
+wget \
+sudo \
+clang \
+clangd \
+clang-format \
+clang-tools \
+cmake \
+make \
+ninja-build \
+pipx \
+neovim \
+bat \
+curl \
+gdb \
+less \
+locales \
+git \
+openssh-server \
+bat \
+unminimize \
+vivid \
+file \
+unzip \
+build-essential \
+python-dev-is-python3 \
+neofetch \
+software-properties-common \
+man \
+tree
 
 COPY config/locale /etc/default/locale
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8

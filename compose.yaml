@@ -1,0 +1,20 @@
+# USER_UID=$(id -u) USER_NAME=$(id -un) docker compose up -d --build
+# USER_UID=$(id -u) USER_NAME=$(id -un) docker compose down
+services:
+  devenv:
+    image: devenv
+    build:
+      context: .
+      args:
+        - USER_UID=$USER_UID
+        - USER_NAME=$USER_NAME
+    ports:
+      - "3000:22"
+    volumes:
+      - type: bind
+        source: $HOME/Work
+        target: /home/$USER_NAME/Work
+      - type: bind
+        source: $HOME/.ssh
+        target: /home/$USER_NAME/.ssh
+        read_only: true
