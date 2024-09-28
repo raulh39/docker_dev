@@ -55,9 +55,9 @@ RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygi
     sudo install lazygit /usr/local/bin && \
     rm -rf lazygit.tar.gz lazygit
 
-# RUN --mount=type=bind,source=./wezterm-nightly.Ubuntu24.04.deb,target=/root/wezterm-nightly.Ubuntu24.04.deb \
-# apt-get -y --no-install-recommends install /root/wezterm-nightly.Ubuntu24.04.deb && \
-# apt --fix-broken install
+RUN --mount=type=bind,source=./wezterm-nightly.Ubuntu24.04.deb,target=/root/wezterm-nightly.Ubuntu24.04.deb \
+apt-get -y --no-install-recommends install /root/wezterm-nightly.Ubuntu24.04.deb && \
+apt --fix-broken install
 
 # ------------ sshd --------------
 RUN mkdir /var/run/sshd
