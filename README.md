@@ -9,7 +9,7 @@ The user id and user name in the Docker image can be set at build time to match 
 ## Adjust compose.yaml
 More surely, the "volumes" section or the name of the image should be modified to adjust it for your preferences.
 
-As you an me are the same person (there is no way someone else is reading this snoozefest) think about the project you
+As you and me are the same person (there is no way someone else is reading this snoozefest), think about the project you
 are now developing... are you still using "Work" as the main folder? Most surely not, huh?. So change that.
 
 ## Start Docker container
